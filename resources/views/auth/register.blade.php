@@ -26,6 +26,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="user_name" class="col-md-4 col-form-label text-md-right">{{ __('User Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ old('user_name') }}" required autocomplete="user_name" autofocus>
+
+                                @error('user_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -58,6 +72,20 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="referrer_name" class="col-md-4 col-form-label text-md-right">{{ __('Refer User Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="referrer_name" type="text" class="form-control @error('referrer_name') is-invalid @enderror" name="referrer_name" value="{{ old('referrer_name') }}" required autocomplete="referrer_name" autofocus>
+
+                                @error('referrer_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
