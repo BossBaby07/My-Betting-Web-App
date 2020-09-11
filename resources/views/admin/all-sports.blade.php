@@ -36,6 +36,7 @@
                 <th>Match Date</th>
                 <th>Venue</th>
                 <th>Match Result</th>
+                <th>Match Result Update</th>
                 <th>DELETE</th>
               </thead>
               <tbody>
@@ -52,6 +53,9 @@
                   <td>{{ $sport->match_date }}</td>
                   <td>{{ $sport->venue }}</td>
                   <td>{{ $sport->match_result }}</td>
+                  <td>
+                    <a href={{ URL::to('admin/sport-edit/'.$sport->id) }} class="btn btn-success">UPDATE</a>
+                  </td>
                   <td>
                       <form action="{{ url('admin/sport-delete/'.$sport->id) }}" method="POST">
                         {{ csrf_field() }}

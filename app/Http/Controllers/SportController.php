@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sport;
+use App\Category;
 use Illuminate\Http\Request;
 
 class SportController extends Controller
@@ -25,7 +26,8 @@ class SportController extends Controller
 
     public function showSportAddForm()
     {
-        return view('admin.add-sports');
+        $category = Category::all();
+        return view('admin.add-sports')->with('all_category', $category);
     }
 
     public function save(Request $request)
@@ -53,23 +55,25 @@ class SportController extends Controller
 
     public function delete($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $sport = Sport::findOrFail($id);
+        $sport->delete();
 
         return redirect('admin/all-sport')->with('status', 'Sport is deleted');
     }
 
-    public function sportUpdateForm($id)
+    public function showSportUpdateForm(Request $request, $id)
     {
-
+        $sport = Sport::findOrFail($id);
+        return view('admin.update-sports')->with('sport', $sport);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $sport = Sport::find($id);
+        $sport->match_result = $request->input("match_result");
+        $sport->update();
 
-        return redirect('admin/all-sport')->with('status', 'Sport is deleted');
+        return redirect('admin/all-sport')->with('status', 'Sport match result updated');
     }
 
 }

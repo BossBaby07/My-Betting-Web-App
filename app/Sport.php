@@ -12,7 +12,7 @@ class Sport extends Model
      * @var array
      */
     protected $fillable = [
-        'item_id', 'team_one', 'team_two', 'bet_price', 'sport_status',
+        'category_id', 'team_one', 'team_two', 'bet_price', 'sport_status',
         'match_date', 'venue', 'match_result'
     ];
 }

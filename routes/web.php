@@ -26,7 +26,7 @@ Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
 Route::prefix('admin')->group(function(){
     //Dashboard
-    Route::GET('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
 
     // Admin Login
     Route::GET('/login', 'Admin\AdminLoginController@showLoginForm')->name('admin.login');
@@ -59,9 +59,20 @@ Route::prefix('admin')->group(function(){
 
     //Sport Data
     Route::get('/all-sport', 'SportController@index');
-    // Route::get('/add-sport', 'SportController@showSportAddForm');
-    // Route::post('/save-sport', 'SportController@save');
-    // Route::delete('/sport-delete/{id}', 'SportController@delete');
+    Route::get('/add-sport', 'SportController@showSportAddForm');
+    Route::post('/save-sport', 'SportController@save');
+    Route::get('/sport-edit/{id}', 'SportController@showSportUpdateForm');
+    Route::put('/update-sport/{id}', 'SportController@update');
+    Route::delete('/sport-delete/{id}', 'SportController@delete');
+
+    //Confirm Bet Data
+    Route::get('/all-bet', 'ConfirmBetController@index');
+
+    //Withdraw Request Data
+    Route::get('/all-withdraw', 'WithdrawRequestController@index');
+
+    //Refer Amount Data
+    Route::get('/all-referamount', 'ReferAmountController@index');
 
 });
 
