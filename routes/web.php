@@ -39,9 +39,32 @@ Route::prefix('admin')->group(function(){
     Route::GET('/register', 'Admin\AdminRegisterController@showRegistrationForm')->name('admin.register');
     Route::GET('/register', 'Admin\AdminRegisterController@register')->name('admin.register.submit');
 
-    //Admin Password reset
+    //Admin Password Reset
     Route::get('/password/reset', 'Admin\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
     Route::post('/password/email', 'Admin\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::get('/password/reset/{token}', 'Admin\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Admin\AdminResetPasswordController@reset')->name('admin.password.update');
+
+    //----------Admin Panel Data----------//
+
+    //User Data
+    Route::get('/all-user', 'UserController@index');
+    Route::delete('/user-delete/{id}', 'UserController@userdelete');
+
+    //Category Data
+    Route::get('/all-category', 'CategoryController@index');
+    Route::get('/add-category', 'CategoryController@showCategoryAddForm');
+    Route::post('/save-category', 'CategoryController@save');
+    Route::delete('/category-delete/{id}', 'CategoryController@delete');
+
+    //Sport Data
+    Route::get('/all-sport', 'SportController@index');
+    // Route::get('/add-sport', 'SportController@showSportAddForm');
+    // Route::post('/save-sport', 'SportController@save');
+    // Route::delete('/sport-delete/{id}', 'SportController@delete');
+
 });
+
+
+
+

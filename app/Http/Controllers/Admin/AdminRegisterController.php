@@ -33,7 +33,7 @@ class AdminRegisterController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
                 'password' => ['required', 'string', 'min:8'],
-                'user_name' => ['required', 'string', 'min:3', 'max:255'],
+                'user_name' => ['required', 'string', 'min:3', 'max:255', 'unique:admins'],
             ]
         );
 
