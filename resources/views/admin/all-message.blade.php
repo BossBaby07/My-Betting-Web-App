@@ -14,7 +14,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title"> All Sports List </h4>
+          <h4 class="card-title"> All Messages List </h4>
 
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -28,36 +28,24 @@
             <table class="table">
               <thead class=" text-primary">
                 <th>ID</th>
-                <th>Category ID</th>
-                <th>Team One</th>
-                <th>Team Two</th>
-                <th>Bet Price</th>
-                <th>Sport Status</th>
-                <th>Match Date</th>
-                <th>Venue</th>
-                <th>Match Result</th>
-                <th>Match Result Update</th>
+                <th>Sender Name</th>
+                <th>Sender Email</th>
+                <th>Message</th>
                 <th>DELETE</th>
               </thead>
               <tbody>
 
-                  @foreach ( $all_sport as $sport )
+                  @foreach ( $all_message as $message )
 
                 <tr>
-                  <td>{{ $sport->id }}</td>
-                  <td>{{ $sport->category_id }}</td>
-                  <td>{{ $sport->team_one }}</td>
-                  <td>{{ $sport->team_two }}</td>
-                  <td>{{ $sport->bet_price }}</td>
-                  <td>{{ $sport->sport_status }}</td>
-                  <td>{{ $sport->match_date }}</td>
-                  <td>{{ $sport->venue }}</td>
-                  <td>{{ $sport->match_result }}</td>
+                  <td>{{ $message->id }}</td>
+                  <td>{{ $message->name }}</td>
+                  <td>{{ $message->email }}</td>
                   <td>
-                    <a href={{ URL::to('admin/sport-edit/'.$sport->id) }} class="btn btn-success">UPDATE</a>
+                      <p>{{ $message->messages }}</p>
                   </td>
                   <td>
-                      <form action="{{ url('admin/sport-delete/'.$sport->id) }}" method="POST">
+                      <form action="{{ url('admin/message-delete/'.$message->id) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                           <button type="submit" class="btn btn-danger">DELETE</button>

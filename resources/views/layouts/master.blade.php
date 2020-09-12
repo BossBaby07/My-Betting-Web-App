@@ -36,13 +36,13 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li>
+          <li class="active">
             <a href="{{ URL::to('admin') }}">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="active">
+          <li>
             <a href="{{ URL::to('admin/all-user') }}">
               <i class="now-ui-icons users_single-02"></i>
               <p>All Users</p>
@@ -73,27 +73,33 @@
             </a>
           </li>
           <li>
-            <a href="">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Match</p>
+            <a href="{{ URL::to('admin/all-bet') }}">
+              <i class="now-ui-icons files_paper"></i>
+              <p>All Confirmed Bet</p>
             </a>
           </li>
           <li>
-            <a href="./tables.html">
+            <a href="{{ URL::to('admin/all-withdraw') }}">
+              <i class="now-ui-icons files_paper"></i>
+              <p>All Withdraw Request</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ URL::to('admin/all-contact') }}">
               <i class="now-ui-icons design_bullet-list-67"></i>
-              <p>Table List</p>
+              <p>Messages</p>
             </a>
           </li>
           <li>
-            <a href="./typography.html">
+            <a href="{{ URL::to('admin/add-referamount') }}">
               <i class="now-ui-icons text_caps-small"></i>
-              <p>Typography</p>
+              <p>Add Refer Percentage</p>
             </a>
           </li>
           <li class="active-pro">
-            <a href="./upgrade.html">
+            <a href="">
               <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-              <p>Upgrade to PRO</p>
+              <p></p>
             </a>
           </li>
         </ul>

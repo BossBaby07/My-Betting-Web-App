@@ -19,8 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// User
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+
+// User Data
 
 // Admin
 
@@ -67,12 +71,23 @@ Route::prefix('admin')->group(function(){
 
     //Confirm Bet Data
     Route::get('/all-bet', 'ConfirmBetController@index');
+    Route::get('/post-info/{id}', 'ConfirmBetController@showPostInfo');
+    Route::post('/placer-win/{id}/{amount}/{bet_id}', 'ConfirmBetController@placerWin');
+    Route::post('/taker-win/{id}/{amount}/{bet_id}', 'ConfirmBetController@takerWin');
+    Route::delete('/bet-delete/{id}', 'ConfirmBetController@delete');
 
     //Withdraw Request Data
     Route::get('/all-withdraw', 'WithdrawRequestController@index');
+    Route::get('/user-info/{id}', 'WithdrawRequestController@showUserInfo');
+    Route::post('/withdraw-success/{id}/{user_id}/{amount}', 'WithdrawRequestController@withdrawSuccess');
+
+    //Contact Us Amount Data
+    Route::get('/all-contact', 'ContactUsController@index');
+    Route::delete('/message-delete/{id}', 'ContactUsController@delete');
 
     //Refer Amount Data
-    Route::get('/all-referamount', 'ReferAmountController@index');
+    Route::get('/add-referamount', 'ReferAmountController@showReferForm');
+    Route::post('/save-referamount', 'ReferAmountController@update');
 
 });
 
