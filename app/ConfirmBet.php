@@ -12,6 +12,14 @@ class ConfirmBet extends Model
      * @var array
      */
     protected $fillable = [
-        'post_id', 'placer_id', 'placer_team', 'taker_id', 'taker_team', 'confirm_price'
+        'post_id', 'sp_id', 'placer_id', 'placer_team', 'taker_id', 'taker_team', 'confirm_price'
     ];
+
+    /**
+     * Get the Post that owns the Confirm Bet.
+     */
+    public function posts()
+    {
+        return $this->belongsTo('App\Post');
+    }
 }

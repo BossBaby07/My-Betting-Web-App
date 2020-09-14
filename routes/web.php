@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
@@ -22,13 +22,26 @@ Auth::routes();
 // User
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/category/{id}', 'HomeController@categoryItemShow')->name('homes');
 Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
-// User Data
+// -------------User Data---------------//
+
+Route::get('/sport-details/{id}', 'HomeController@showSportDetails')->name('sports');
+Route::get('/place-bid/{id}', 'HomeController@showPlaceBidForm')->name('bidforms'); // All bid list
+
+//Bid Users
+
+Route::post('/save-bid/{id}', 'HomeController@saveBid')->name('bidsave');
+Route::post('/confirm-bet/{id}/{sp_id}/{bid_amount}/{user_id}', 'HomeController@confirmBid')->name('bidconfirm');
+Route::get('/post-form/{id}/{team}', 'HomeController@showPostForm')->name('postforms');
+Route::post('/save-post/{id}/{team}', 'HomeController@savePost')->name('savepost');
+
+
 
 // Admin
 
-Route::prefix('admin')->group(function(){
+Route::prefix('/admin')->group(function(){
     //Dashboard
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 

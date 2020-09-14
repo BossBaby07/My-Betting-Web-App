@@ -2,7 +2,7 @@
 
 @section('title')
 
-    home
+    homes
 
 @endsection
 

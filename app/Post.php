@@ -14,4 +14,13 @@ class Post extends Model
     protected $fillable = [
         'post_owner_id', 'sp_id', 'support_team', 'title', 'description', 'price'
     ];
+
+
+    /**
+     * Get the Confirm Bet record associated with the Post.
+     */
+    public function bets()
+    {
+        return $this->hasOne('App\ConfirmBet');
+    }
 }
