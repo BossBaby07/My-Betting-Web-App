@@ -2,7 +2,7 @@
 
 @section('title')
 
-    homes
+    sports
 
 @endsection
 
@@ -143,7 +143,7 @@
 
                             <div class="form-group">
                                 <label>Bid Amount</label>
-                                <input type="integer" name="bid_amount" class="form-control @error('bid_amount') is-invalid @enderror" required="">
+                                <input type="number" name="bid_amount" class="form-control @error('bid_amount') is-invalid @enderror" required="">
                             </div>
 
                             <button type="submit" class="btn btn-success">Place Your Bid</button>
@@ -158,6 +158,8 @@
     </div>
 </section>
 <!-- Sport Section End -->
+
+
 
 @endsection
 

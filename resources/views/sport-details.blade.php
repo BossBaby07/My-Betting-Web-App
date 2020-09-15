@@ -15,7 +15,7 @@
 
         <div class="card text-center text-white bg-primary">
             <div class="card-header">
-                {{ $confirms->count() }} Bids Already Confirmed For This Section
+                {{ $confirms->count() }} Posts Already Confirmed For This Section
             </div>
         </div>
 
@@ -54,7 +54,11 @@
                                                             <h5 class="card-title">{{ $p1->title }}</h5>
                                                             <p class="card-text">{{ $p1->description }}</p>
 
+                                                            @if ($p1->post_status = 0)
+                                                            <h5 class="card-title text-white bg-danger">This Post already Confirmed</h5>
+                                                            @else
                                                             <a href="{{ URL::to('place-bid/'.$p1->id.'/') }}" class="btn btn-success">Place Bid</a>
+                                                            @endif
 
                                                         </div>
                                                 </div><br>
@@ -63,7 +67,7 @@
 
                                         @else
 
-                                        Sorry ! No Bid Post Posted Yet !
+                                        Sorry ! No Bid-Post Posted Yet !
 
                                         @endif
 
@@ -105,7 +109,13 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title">{{ $p2->title }}</h5>
                                                             <p class="card-text">{{ $p2->description }}</p>
+
+                                                            @if ($p2->post_status = 0)
+                                                            <h5 class="card-title text-white bg-danger">This Post already Confirmed</h5>
+                                                            @else
                                                             <a href="{{ URL::to('place-bid/'.$p2->id) }}" class="btn btn-primary">Place Bid</a>
+                                                            @endif
+
                                                         </div>
                                                 </div><br>
 
@@ -113,7 +123,7 @@
 
                                         @else
 
-                                        Sorry ! No Bid Post Posted Yet !
+                                        Sorry ! No Bid-Post Posted Yet !
 
                                         @endif
 

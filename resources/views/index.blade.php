@@ -20,63 +20,41 @@
                         <div class="mc-table">
                             <table>
                                 <tbody>
+
+                                    @if ($sports->count() > 0)
+
+                                    @foreach ($sports as $item)
+
                                     <tr>
                                         <td class="left-team">
                                             <img src="{{ url('frontend/img/match/red-card.jpg') }}" alt="">
-                                            <h6>Cambodia</h6>
+                                            <h6>{{ $item->team_one }}</h6>
                                         </td>
                                         <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
+                                            <div class="mc-op">{{ $item->venue }}</div>
                                             <h4>VS</h4>
-                                            <div class="mc-op">15 September 2019</div>
+                                            <div class="mc-op">{{ $item->match_date }}</div>
                                         </td>
                                         <td class="right-team">
                                             <img src="{{ url('frontend/img/match/yellow-card.jpg') }}" alt="">
-                                            <h6>Qatar</h6>
+                                            <h6>{{ $item->team_two }}</h6>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
+
+                                    @endforeach
+
+                                    @else
+
                                     <tr>
-                                        <td class="left-team">
-                                            <img src="img/match/tf-3.jpg" alt="">
-                                            <h6>Australia</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>VS</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="img/match/tf-4.jpg" alt="">
-                                            <h6>Iraq</h6>
-                                        </td>
+                                        <div class='card'>
+                                            <div class='card-header text-white bg-primary'>
+                                                No Match Data for public user
+                                            </div>
+                                        </div>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="img/match/tf-5.jpg" alt="">
-                                            <h6>Ucraina</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>VS</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="img/match/tf-6.jpg" alt="">
-                                            <h6>Jordan</h6>
-                                        </td>
-                                    </tr>
+
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>
@@ -88,63 +66,15 @@
                         <div class="mc-table">
                             <table>
                                 <tbody>
+
                                     <tr>
-                                        <td class="left-team">
-                                            <img src="img/match/tf-1.jpg" alt="">
-                                            <h6>Darussalam</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>1 : 2</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="img/match/tf-2.jpg" alt="">
-                                            <h6>Ucraina</h6>
-                                        </td>
+                                        <div class='card'>
+                                            <div class='card-header text-white bg-danger'>
+                                                Sorry ! No Bid Post for public user. Please, Do Sign-in
+                                            </div>
+                                        </div>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="img/match/tf-3.jpg" alt="">
-                                            <h6>Japan</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>1 : 2</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="img/match/tf-4.jpg" alt="">
-                                            <h6>Philippines</h6>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="img/match/tf-5.jpg" alt="">
-                                            <h6>Kyrgyz</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>1 : 2</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="img/match/tf-6.jpg" alt="">
-                                            <h6 class="mi-right">Pakistan</h6>
-                                        </td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -178,98 +108,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="news-item popular-item set-bg" data-setbg="{{ url('frontend/img/news/popular-b.jpg') }}">
-                                <div class="ni-text">
-                                    <h5><a href="#">England reach World Cup last 16 with hard-fought win over
-                                            Argentina</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="news-item">
-                                <div class="ni-pic">
-                                    <img src="img/news/ln-1.jpg" alt="">
-                                </div>
-                                <div class="ni-text">
-                                    <h5><a href="#">There’s a great history of the winner Sandia</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="news-item">
-                                <div class="ni-pic">
-                                    <img src="img/news/ln-2.jpg" alt="">
-                                </div>
-                                <div class="ni-text">
-                                    <h5><a href="#">It’ll be a tough game and a physical game</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="news-item">
-                                <div class="ni-pic">
-                                    <img src="img/news/ln-3.jpg" alt="">
-                                </div>
-                                <div class="ni-text">
-                                    <h5><a href="#">If we don’t score we can’t get frustrated</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="news-item popular-item set-bg" data-setbg="{{ url('frontend/img/news/popular-b.jpg') }}">
-                                <div class="ni-text">
-                                    <h5><a href="#">We are playing history and Argentina at the World Cup, says Phil
-                                            Neville</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="news-item">
-                                <div class="ni-pic">
-                                    <img src="img/news/ln-5.jpg" alt="">
-                                </div>
-                                <div class="ni-text">
-                                    <h5><a href="#">Le Havre does have a growing fan club</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="news-item">
-                                <div class="ni-pic">
-                                    <img src="img/news/ln-6.jpg" alt="">
-                                </div>
-                                <div class="ni-text">
-                                    <h5><a href="#">It will be hard to break them down</a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="news-item">
-                                <div class="ni-pic">
-                                    <img src="img/news/ln-7.jpg" alt="">
-                                </div>
-                                <div class="ni-text">
-                                    <h5><a href="#">We’ve never seen them as organised </a></h5>
-                                    <ul>
-                                        <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                        <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                    </ul>
+                            <div class='card'>
+                                <div class='card-header text-white bg-danger'>
+                                    Sorry ! Not available now!
                                 </div>
                             </div>
                         </div>

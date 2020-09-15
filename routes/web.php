@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', 'HomeController@indexPage')->name('index');
 
 Auth::routes();
 
@@ -36,6 +38,27 @@ Route::post('/save-bid/{id}', 'HomeController@saveBid')->name('bidsave');
 Route::post('/confirm-bet/{id}/{sp_id}/{bid_amount}/{user_id}', 'HomeController@confirmBid')->name('bidconfirm');
 Route::get('/post-form/{id}/{team}', 'HomeController@showPostForm')->name('postforms');
 Route::post('/save-post/{id}/{team}', 'HomeController@savePost')->name('savepost');
+
+//User Posts
+Route::get('/my-post', 'HomeController@userOwnPost')->name('userpost');
+
+//User Profile
+Route::get('/my-profile', 'HomeController@userProfile')->name('userprofile');
+
+//User Coin Transfer
+Route::get('/my-coin', 'HomeController@coinTransfer')->name('transfer');
+Route::post('/coin-post', 'HomeController@transferPost')->name('transferpost');
+Route::post('/money-transfer', 'HomeController@moneyTransfer')->name('transfermoney');
+
+//Withdraw Request
+Route::post('/withdraw-request/{refer_cut}', 'HomeController@withdrawRequest')->name('withdrawrequest');
+
+//Contact Us
+Route::get('/my-blogs', 'HomeController@blogPage')->name('blogs');
+
+//Contact Us
+Route::get('/contact-us', 'HomeController@contactForm')->name('contactpage');
+Route::post('/send-message', 'HomeController@sendMessage')->name('sendmessage');
 
 
 

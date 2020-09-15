@@ -27,6 +27,51 @@
         <div class="loader"></div>
     </div>
 
+    <!-- Offcanvas Menu Section Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="fa fa-close"></i>
+        </div>
+        <div class="search-btn search-switch">
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="header__top--canvas">
+            <div class="ht-info">
+                <ul>
+                    <li>20:00 - May 19, 2019</li>
+                    <li><a href="#">Sign in</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="ht-links">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-vimeo"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+        <ul class="main-menu mobile-menu">
+            <li class="active"><a href="./index.html">Home</a></li>
+            <li><a href="./club.html">Club</a></li>
+            <li><a href="./schedule.html">Schedule</a></li>
+            <li><a href="./result.html">Results</a></li>
+            <li><a href="#">Sport</a></li>
+            <li><a href="#">Pages</a>
+                <ul class="dropdown">
+                    <li><a href="./blog.html">Blog</a></li>
+                    <li><a href="./blog-details.html">Blog Details</a></li>
+                    <li><a href="#">Schedule</a></li>
+                    <li><a href="#">Results</a></li>
+                </ul>
+            </li>
+            <li><a href="./contact.html">Contact Us</a></li>
+        </ul>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+    <!-- Offcanvas Menu Section End -->
+
     <!-- Header Section Begin -->
     <header class="header-section">
         <div class="header__nav">
@@ -42,12 +87,11 @@
                             <ul class="main-menu">
                                 @auth
                                     <li><a href="{{ url('/home') }}">Home</a></li>
-                                    <li><a href="./club.html">Club</a></li>
-                                    <li><a href="./schedule.html">Schedule</a></li>
-                                    <li><a href="./result.html">Results</a></li>
-                                    <li><a href="#">Sport</a></li>
-                                    <li><a href="#">Blogs</a></li>
-                                    <li><a href="./contact.html">Contact Us</a></li>
+                                    <li><a href="{{ url('/my-profile') }}">My Profile</a></li>
+                                    <li><a href="{{ url('/my-post') }}">My Post</a></li>
+                                    <li><a href="{{ url('/my-coin') }}">Coin</a></li>
+                                    <li><a href="{{ url('/my-blogs') }}">Blogs</a></li>
+                                    <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                                     <li>
 
                                         <a href="{{ route('user.logout') }}"
@@ -98,9 +142,9 @@
                             <a href="./index.html"><img src="img/logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li><i class="fa fa-envelope"></i> Info.colorlib@gmail.com</li>
-                            <li><i class="fa fa-copy"></i> +(12) 345 6789 10</li>
-                            <li><i class="fa fa-thumb-tack"></i> 40 Baria Sreet 133/2 New York City, United State</li>
+                            <li><i class="fa fa-envelope"></i>info.specer@gmail.com </li>
+                            <li><i class="fa fa-copy"></i>1-234-567-89011 </li>
+                            <li><i class="fa fa-thumb-tack"></i>T8/480 Collins St, Melbourne VIC 3000, New York </li>
                         </ul>
                         <div class="fs-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -135,11 +179,11 @@
                         <h4>Recent Blog</h4>
 
                         <div class="fw-item">
-                            <h5><a href="#">England win shows they have the spark to go far at World Cup</a></h5>
-                            <ul>
+                            <h5><a href="#">This Section will be available soon</a></h5>
+                            {{-- <ul>
                                 <li><i class="fa fa-calendar"></i> May 19, 2019</li>
                                 <li><i class="fa fa-edit"></i> 3 Comment</li>
-                            </ul>
+                            </ul> --}}
                         </div>
                         {{-- <div class="fw-item">
                             <h5><a href="#">Sri Lanka v Australia: Cricket World Cup 2019 – live!</a></h5>

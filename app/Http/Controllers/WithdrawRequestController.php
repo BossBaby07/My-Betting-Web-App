@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\WithdrawRequest;
 use App\User;
 use Illuminate\Http\Request;
@@ -35,6 +36,15 @@ class WithdrawRequestController extends Controller
         $user = User::findOrFail($user_id);
         $user->wallet = $user->wallet-$request->amount;
         $user->update();
+
+        $current = new Carbon();
+        $current->timezone('Asia/Dhaka');
+
+        //Win History Update
+        $history = WithdrawHistory::create([
+            'user_id' => $user_id,
+            'history' => 'Your requested amount confirmed by admin at '+$current,
+        ]);
 
         $withdraw = WithdrawRequest::findOrFail($id);
         $withdraw->delete();

@@ -17,6 +17,7 @@ class CreateReferAmountsTable extends Migration
             $table->id();
             $table->integer('refer_amount');
             $table->integer('author_amount');
+            $table->integer('request_cut');
             $table->timestamps();
         });
     }

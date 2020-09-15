@@ -75,7 +75,7 @@
           <li>
             <a href="{{ URL::to('admin/all-bet') }}">
               <i class="now-ui-icons files_paper"></i>
-              <p>All Confirmed Bet</p>
+              <p>Win Decider Section</p>
             </a>
           </li>
           <li>

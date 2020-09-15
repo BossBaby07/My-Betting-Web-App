@@ -6,6 +6,7 @@ use App\ConfirmBet;
 use App\Post;
 use App\User;
 use App\ReferAmount;
+use App\WinHistory;
 use Illuminate\Http\Request;
 
 class ConfirmBetController extends Controller
@@ -44,6 +45,21 @@ class ConfirmBetController extends Controller
         $give->wallet = $give->wallet + ($request->amount*($refer->refer_amount/100));
         $give->update();
 
+        // Sport Data
+        $confirm = ConfirmBet::where('id', $bet_id)->first();
+        $sport = Sport::where('id', $confirm->sp_id)->first();
+
+        //Win History Update
+        $history = WinHistory::create([
+            'user_id' => $id,
+            'history' => 'You win '+$sport->team_one+' vs '+$sport->team_two+' Date: '+$sport->match_date,
+        ]);
+
+        //Delete Post Info
+        $bet_info = ConfirmBet::where('id', $bet_id)->first();
+        $post = Post::where('id', $bet_info->post_id)->where('sp_id', $bet_info->sp_id)->delete();
+
+        //Delete ConfirmBet
         $bet = ConfirmBet::findOrFail($bet_id);
         $bet->delete();
 
@@ -63,6 +79,22 @@ class ConfirmBetController extends Controller
         $give->update();
 
 
+        // Sport Data
+        $confirm = ConfirmBet::where('id', $bet_id)->first();
+        $sport = Sport::where('id', $confirm->sp_id)->first();
+
+        //Win History Update
+        $history = WinHistory::create([
+            'user_id' => $id,
+            'history' => 'You win '+$sport->team_one+' vs '+$sport->team_two+' Date: '+$sport->match_date,
+        ]);
+
+
+        //Delete Post Info
+        $bet_info = ConfirmBet::where('id', $bet_id)->first();
+        $post = Post::where('id', $bet_info->post_id)->where('sp_id', $bet_info->sp_id)->delete();
+
+        //Delete ConfirmBet
         $bet = ConfirmBet::findOrFail($bet_id);
         $bet->delete();
 
@@ -71,6 +103,11 @@ class ConfirmBetController extends Controller
 
     public function delete(Request $request, $id)
     {
+        //Delete Post Info
+        $bet_info = ConfirmBet::where('id', $bet_id)->first();
+        $post = Post::where('id', $bet_info->post_id)->where('sp_id', $bet_info->sp_id)->delete();
+
+        //Delete ConfirmBet
         $bet = ConfirmBet::findOrFail($bet_id);
         $bet->delete();
 

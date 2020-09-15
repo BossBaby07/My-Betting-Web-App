@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReferAmount extends Model
+class MoneySellPost extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,6 @@ class ReferAmount extends Model
      * @var array
      */
     protected $fillable = [
-        'refer_amount', 'author_amount', 'request_cut'
+        'name', 'email', 'username', 'phone', 't_amount',
     ];
 }

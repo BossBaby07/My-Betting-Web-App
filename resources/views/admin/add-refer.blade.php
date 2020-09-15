@@ -49,6 +49,16 @@
                                     </span>
                                     @enderror
                         </div>
+                        <div class="form-group">
+                            <label>Withdraw Comission (percentage)</label>
+                            <input type="integer" name="request_cut" value="{{ $refer->request_cut }}" class="form-control @error('request_cut') is-invalid @enderror" required="">
+
+                            @error('request_cut')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                        </div>
                         <button type="submit" class="btn btn-success">SAVE</button>
                         <a href="{{ URL::to('admin') }}" class="btn btn-danger">CANCEL</a>
                     </form>

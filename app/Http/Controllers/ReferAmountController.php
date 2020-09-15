@@ -34,6 +34,7 @@ class ReferAmountController extends Controller
         $refer = ReferAmount::find(1);
         $refer->refer_amount = $request->input("refer_amount");
         $refer->author_amount = $request->input("author_amount");
+        $refer->request_cut = $request->input("request_cut");
         $refer->update();
 
         return redirect('admin/add-referamount')->with('status', 'Refer Amount Added');
