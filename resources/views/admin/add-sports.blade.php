@@ -85,7 +85,7 @@
 
                         <div class="form-group">
                             <label>Give a Minimum Betting Amount</label>
-                            <input type="integer" name="bet_price" class="form-control @error('bet_price') is-invalid @enderror" required="">
+                            <input type="number" name="bet_price" class="form-control @error('bet_price') is-invalid @enderror" required="">
 
                             @error('bet_price')
                                 <span class="invalid-feedback" role="alert">

@@ -31,7 +31,7 @@
 
                         <div class="form-group">
                             <label>Referrer Comission (percentage)</label>
-                            <input type="integer" name="refer_amount" value="{{ $refer->refer_amount }}" class="form-control @error('refer_amount') is-invalid @enderror" required="">
+                            <input type="number" name="refer_amount" value="{{ $refer->refer_amount }}" class="form-control @error('refer_amount') is-invalid @enderror" required="">
 
                             @error('refer_amount')
                                     <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label>Admin Comission (percentage)</label>
-                            <input type="integer" name="author_amount" value="{{ $refer->author_amount }}" class="form-control @error('author_amount') is-invalid @enderror" required="">
+                            <input type="number" name="author_amount" value="{{ $refer->author_amount }}" class="form-control @error('author_amount') is-invalid @enderror" required="">
 
                             @error('author_amount')
                                     <span class="invalid-feedback" role="alert">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label>Withdraw Comission (percentage)</label>
-                            <input type="integer" name="request_cut" value="{{ $refer->request_cut }}" class="form-control @error('request_cut') is-invalid @enderror" required="">
+                            <input type="number" name="request_cut" value="{{ $refer->request_cut }}" class="form-control @error('request_cut') is-invalid @enderror" required="">
 
                             @error('request_cut')
                                     <span class="invalid-feedback" role="alert">

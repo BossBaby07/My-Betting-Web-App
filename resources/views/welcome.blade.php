@@ -39,34 +39,45 @@
         <div class="header__top--canvas">
             <div class="ht-info">
                 <ul>
-                    <li>20:00 - May 19, 2019</li>
-                    <li><a href="#">Sign in</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li>
+                        <script>document.write(new Date().getDate());</script>-
+                        <script>document.write(new Date().getMonth());</script>-
+                        <script>document.write(new Date().getFullYear());</script>
+                    </li>
+                    <li></li>
+                    <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                 </ul>
-            </div>
-            <div class="ht-links">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-vimeo"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-google-plus"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
             </div>
         </div>
         <ul class="main-menu mobile-menu">
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./club.html">Club</a></li>
-            <li><a href="./schedule.html">Schedule</a></li>
-            <li><a href="./result.html">Results</a></li>
-            <li><a href="#">Sport</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="dropdown">
-                    <li><a href="./blog.html">Blog</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                    <li><a href="#">Schedule</a></li>
-                    <li><a href="#">Results</a></li>
-                </ul>
-            </li>
-            <li><a href="./contact.html">Contact Us</a></li>
+            @auth
+                <li><a href="{{ url('/home') }}">Home</a></li>
+                <li><a href="{{ url('/my-profile') }}">My Profile</a></li>
+                <li><a href="{{ url('/my-post') }}">My Post</a></li>
+                <li><a href="{{ url('/my-coin') }}">Coin</a></li>
+                <li><a href="{{ url('/my-blogs') }}">Blogs</a></li>
+                <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
+                <li>
+
+                    <a href="{{ route('user.logout') }}"
+                        onclick="event.preventDefault();
+                                    document.getElementById('user-logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="user-logout-form" action="{{ route('user.logout') }}" method="POST"
+                            style="display: none;">
+                        @csrf
+                    </form>
+
+                </li>
+            @else
+                <li><a href="{{ route('login') }}">Login</a></li>
+
+                @if (Route::has('register'))
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                @endif
+            @endauth
         </ul>
         <div id="mobile-menu-wrap"></div>
     </div>

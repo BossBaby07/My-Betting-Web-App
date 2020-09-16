@@ -32,6 +32,7 @@
                 <th>Email</th>
                 <th>Referrer Name</th>
                 <th>Coins</th>
+                <th>Redeem</th>
                 <th>DELETE</th>
               </thead>
               <tbody>
@@ -44,6 +45,9 @@
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->referrer_name }}</td>
                   <td>{{ $user->wallet }}</td>
+                  <td>
+                    <a href="{{ URL::to('admin/wallet-redeem/'.$user->id) }}" class="btn btn-success">REDEEM</a>
+                </td>
                   <td>
                       <form action="{{ url('admin/user-delete/'.$user->id) }}" method="POST">
                         {{ csrf_field() }}

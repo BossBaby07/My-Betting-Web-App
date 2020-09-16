@@ -89,6 +89,8 @@ Route::prefix('/admin')->group(function(){
 
     //User Data
     Route::get('/all-user', 'UserController@index');
+    Route::get('/wallet-redeem/{id}', 'UserController@walletForm');
+    Route::post('/redeem/{id}', 'UserController@walletRedeem');
     Route::delete('/user-delete/{id}', 'UserController@userdelete');
 
     //Category Data
