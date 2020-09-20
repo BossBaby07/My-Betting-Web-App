@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-8 left-blog-pad">
                 <div class="schedule-text">
-                    <h4 class="st-title">Coin Transfer Posts</h4>
+                    <h4 class="st-title">Money Transfer Posts</h4>
                     <div class="st-table">
                         <table>
                             <tbody>
@@ -60,12 +60,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 btn-outline-success">
 
                 <div class="schedule-sidebar">
                     <div class="ss-widget">
                         <div class="section-title sidebar-title">
-                            <h5>Coin Transfer Box</h5>
+                            <h5>Money Transfer Box</h5>
                         </div>
 
                         @if (session('c_status'))
@@ -79,12 +79,12 @@
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label> Coin Receiver User Name</label>
+                                <label> Money Receiver User Name</label>
                                 <input type="text" name="user_name" class="form-control @error('user_name') is-invalid @enderror" required="">
                             </div>
 
                             <div class="form-group">
-                                <label>Coin Amount</label>
+                                <label>Amount of Money</label>
                                 <input type="number" name="wallet" class="form-control @error('wallet') is-invalid @enderror" required="">
 
                                     @error('wallet')
@@ -95,7 +95,7 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-success">Send Coin</button>
+                            <button type="submit" class="btn btn-warning">Send Money</button>
 
                         </form>
 
@@ -105,7 +105,7 @@
                 <div class="schedule-sidebar">
                     <div class="ss-widget">
                         <div class="section-title sidebar-title">
-                            <h5>Coin Sell Post Form</h5>
+                            <h5>Money Sell Post Form</h5>
 
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
@@ -125,7 +125,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Coin Amount</label>
+                                <label>Amount of Money</label>
                                 <input type="number" name="t_amount" class="form-control @error('t_amount') is-invalid @enderror" required="">
 
                                     @error('t_amount')
@@ -148,7 +148,7 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-success">Make Sell Post</button>
+                            <button type="submit" class="btn btn-dark">Make Sell Post</button>
 
                         </form>
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBidsTable extends Migration
+class CreatePostCountBidsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateBidsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bids', function (Blueprint $table) {
+        Schema::create('post_count_bids', function (Blueprint $table) {
             $table->id();
-            $table->integer('post_id');
             $table->integer('user_id');
-            $table->integer('post_owner_id');
-            $table->integer('reply_to');
-            $table->string('message');
-            $table->integer('bid_amount');
-            $table->tinyInteger('bid_status');
+            $table->integer('post_id');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ class CreateBidsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bids');
+        Schema::dropIfExists('post_count_bids');
     }
 }

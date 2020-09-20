@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bid extends Model
+class Comment extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,12 @@ class Bid extends Model
      * @var array
      */
     protected $fillable = [
-        'post_id', 'user_id', 'post_owner_id', 'reply_to', 'message', 'bid_amount', 'bid_status'
+        'post_id', 'reply_from', 'reply_to', 'comment'
     ];
+
+    public function post()
+    {
+        return $this->belongsTo('App\Post');
+    }
+
 }

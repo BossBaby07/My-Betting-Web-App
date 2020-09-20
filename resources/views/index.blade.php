@@ -14,66 +14,92 @@
     <section class="match-section set-bg" data-setbg="{{ asset('/frontend/img/match/match-bg.jpg') }}">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <div class="ms-content">
-                        <h4>Next Match</h4>
+                        <h4>Next Matches</h4>
+
+                        @if ($sport->count() > 0)
+
+                        @foreach ($sport as $sp)
+
                         <div class="mc-table">
                             <table>
                                 <tbody>
-
-                                    @if ($sports->count() > 0)
-
-                                    @foreach ($sports as $item)
 
                                     <tr>
                                         <td class="left-team">
                                             <img src="{{ url('frontend/img/match/red-card.jpg') }}" alt="">
-                                            <h6>{{ $item->team_one }}</h6>
+                                            <h6>{{ $sp->team_one }}</h6>
                                         </td>
                                         <td class="mt-content">
-                                            <div class="mc-op">{{ $item->venue }}</div>
+                                            <div class="mc-op">{{ $sp->venue }}</div>
                                             <h4>VS</h4>
-                                            <div class="mc-op">{{ $item->match_date }}</div>
+                                            <div class="mc-op">{{ $sp->match_date }}</div><br>
+                                            <div class="mc-op">
+                                                <a href={{ URL::to('sport-details/'.$sp->id) }} class="btn btn-success">View Details</a>
+                                            </div>
                                         </td>
                                         <td class="right-team">
                                             <img src="{{ url('frontend/img/match/yellow-card.jpg') }}" alt="">
-                                            <h6>{{ $item->team_two }}</h6>
+                                            <h6>{{ $sp->team_two }}</h6>
                                         </td>
                                     </tr>
-
-                                    @endforeach
-
-                                    @else
-
-                                    <tr>
-                                        <div class='card'>
-                                            <div class='card-header text-white bg-primary'>
-                                                No Match Data for public user
-                                            </div>
-                                        </div>
-                                    </tr>
-
-                                    @endif
 
                                 </tbody>
                             </table>
                         </div>
+
+                        @endforeach
+
+                        @else
+
+                        <tr>
+                            <div class='card'>
+                                <div class='card-header text-white bg-primary'>
+                                    Sorry ! No Match Found !
+                                </div>
+                            </div>
+                        </tr>
+
+                        @endif
+
+                        <div>
+                            {{ $sport->links() }}
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+
+                <div class="col-lg-1">
+                </div>
+
+                <div class="col-lg-4">
                     <div class="ms-content">
-                        <h4>Recent Post For Bids</h4>
+                        <h4>Sports Category</h4>
                         <div class="mc-table">
                             <table>
                                 <tbody>
 
-                                    <tr>
-                                        <div class='card'>
-                                            <div class='card-header text-white bg-danger'>
-                                                Sorry ! No Bid Post for public user. Please, Do Sign-in
-                                            </div>
-                                        </div>
-                                    </tr>
+                                    @if ($category->count() > 0)
+
+                                        @foreach ($category as $item)
+
+                                            <tr>
+                                                <div class='card'>
+                                                    <a href="{{ URL::to('/category/'.$item->id) }}">
+                                                        <div class='card-header text-dark bg-light'>
+                                                            {{ $item->category_name }}
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </tr>
+
+                                        @endforeach
+
+                                    @else
+
+                                    Sorry ! No category Found !
+
+                                    @endif
 
                                 </tbody>
                             </table>

@@ -17,6 +17,8 @@ use App\MoneySellPost;
 use App\WithdrawRequest;
 use App\ReferAmount;
 use App\ContactUs;
+use App\PostCountBid;
+use App\Comment;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -43,17 +45,22 @@ class HomeController extends Controller
         $current->timezone('Asia/Dhaka');
 
         $category = Category::all();
-        $sport = Sport::where('match_date', '>', $current)->orderby('created_at', 'DESC')->limit(10)->get();
+        $sport = Sport::where('match_date', '>', $current)->orderby('created_at', 'DESC')->paginate(10);
+        $post = Post::orderby('created_at', 'DESC')->limit(3)->get();
 
-        return view('home', array('category' => $category, 'sport' => $sport));
+        return view('index', array('category' => $category, 'sport' => $sport));
     }
 
     public function indexPage()
     {
-        $sport = Sport::orderby('created_at', 'DESC')->limit(3)->get();
+        $current = new Carbon();
+        $current->timezone('Asia/Dhaka');
+
+        $category = Category::all();
+        $sport = Sport::where('match_date', '>', $current)->orderby('created_at', 'DESC')->paginate(10);
         $post = Post::orderby('created_at', 'DESC')->limit(3)->get();
 
-        return view('index', array('sports' => $sport, 'posts' => $post));
+        return view('index', array('category' => $category, 'sport' => $sport));
     }
 
     public function categoryItemShow($id)
@@ -62,9 +69,9 @@ class HomeController extends Controller
         $current->timezone('Asia/Dhaka');
 
         $category = Category::all();
-        $sport = Sport::where('match_date', '>', $current)->where('category_id', $id)->get();
+        $sport = Sport::where('match_date', '>', $current)->where('category_id', $id)->paginate(10);
 
-        return view('homes.homes', array('category' => $category, 'sport' => $sport));
+        return view('home', array('category' => $category, 'sport' => $sport));
     }
 
     //----- Sport details -------//
@@ -72,92 +79,12 @@ class HomeController extends Controller
     public function showSportDetails($id)
     {
         $sport = Sport::where("id", $id)->first();
-        $post_one = Post::where('sp_id', $id)->where('support_team', $sport->team_one)->with('bets')->get();
-        $post_two = Post::where('sp_id', $id)->where('support_team', $sport->team_two)->with('bets')->get();
+        $post_one = Post::where('sp_id', $id)->where('support_team', $sport->team_one)->with('bets')->paginate(10);
+        $post_two = Post::where('sp_id', $id)->where('support_team', $sport->team_two)->with('bets')->paginate(10);
 
         $confirms = ConfirmBet::where('sp_id', $id);
 
         return view('sport-details', array('sport' => $sport, 'post_one' => $post_one, 'post_two' => $post_two, 'confirms' => $confirms));
-    }
-
-    //----- Bid Place details -------//
-
-    public function showPlaceBidForm($id)
-    {
-        $post = Post::where('id', $id)->first();
-
-        $users = User::where('id', $post->post_owner_id)->first();
-
-        $bid = Bid::where('post_id', $id)->where('user_id', Auth::user()->id)->get();
-
-        $lastbid = Bid::where('post_id', $id)->where('user_id', Auth::user()->id)->latest()->first(); //->orderby('created_at', 'DESC')
-
-        return view('sport-bid', array('post' => $post, 'bids' => $bid, 'lastbid' => $lastbid, 'users' => $users));
-    }
-
-    // Bid by user
-
-    public function saveBid(Request $request, $id)
-    {
-        if($request->bid_amount > Auth::user()->wallet)
-        {
-            return redirect('/place-bid/'.$id)->with('status', 'Check Wallet! You can not place this bid.');
-        }else{
-
-            Validator::make($request, [
-                'bid_amount' => ['required', 'integer'],
-            ]);
-
-            $bid = Bid::create([
-                'post_id' => $id,
-                'user_id' => Auth::user()->id,
-                'message' => $request->message,
-                'bid_amount' => $request['bid_amount'],
-            ]);
-
-            return redirect('/place-bid/'.$id)->with('status', 'Bid Placed');
-        }
-
-    }
-
-    // Bid Confirm
-
-    public function confirmBid(Request $request, $id, $sp_id, $bid_amount, $user_id)
-    {
-        $post = Post::where('id', $id)->first();
-        $sport = Sport::where('id', $post->sp_id)->first();
-
-        if($post->support_team == $sport->team_one){
-            $placer_team = $sport->team_two;
-        }else{
-            $placer_team = $sport->team_one;
-        }
-
-        if($request->bid_amount > Auth::user()->wallet)
-        {
-            return redirect('/place-bid/'.$id)->with('c_status', 'Check Wallet! You can not confirm this bid.');
-        }else{
-
-            $bid = ConfirmBet::create([
-                'post_id' => $id,
-                'sp_id' => $sp_id,
-                'placer_id' => $user_id,
-                'placer_team' => $placer_team,
-                'taker_id' => Auth::user()->id,
-                'taker_team' => $post->support_team,
-                'confirm_price' => $bid_amount,
-            ]);
-
-            $confirm_post = Post::findOrFail($id); //Post post status update
-            $confirm_post->post_status = 0;
-            $confirm_post->update();
-
-            $bid_delete_taker = Bid::where('post_id', $id)->where('user_id', Auth::user()->id)->delete();
-            $bid_delete_placer = Bid::where('post_id', $id)->where('user_id', $user_id)->delete();
-
-            return redirect('/place-bid/'.$id)->with('c_status', 'Bid Confirm');
-        }
-
     }
 
     // Post Form
@@ -181,15 +108,156 @@ class HomeController extends Controller
             'post_status' => 1,
         ]);
 
-        return redirect('/place-bid/'.$id)->with('c_status', 'Bid Confirm');
+        return redirect('/my-post')->with('status', 'Your Post is Confirmed');
     }
 
     //User Own Post
     public function userOwnPost()
     {
-        $post = Post::where('post_owner_id', Auth::user()->id);
+        $post = Post::where('post_owner_id', Auth::user()->id)
+        ->join('sports as sports', 'sports.id', '=', 'posts.sp_id')->paginate(10);
 
-        return view('user-own-post')->with('posts', $post);
+        $postCount = PostCountBid::where('user_id', Auth::user()->id)->join('posts as posts', 'posts.id', '=', 'post_count_bids.post_id', 'left outer')->paginate(10);
+
+        return view('user-own-post', array('posts' => $post, 'bidPosts' => $postCount));
+    }
+
+    //----- Bid Place details -------//
+
+    public function postComments($id)
+    {
+        $comment = Comment::where('post_id', $id)->paginate(15);
+
+        //Post info
+        $post = Post::where('id', $id)->first();
+
+        //Bid Request
+        $bid = Bid::where('post_id', $id)->where('bid_status', 1)->join('users as users', 'users.id', '=', 'bids.user_id', 'left outer')->paginate(8);
+
+        return view('bid-comment', array('comments' => $comment, 'post_id' => $id, 'post' => $post, 'bids' => $bid));
+    }
+
+    public function showUserBidConfirm($id)
+    {
+        return view('bid-confirm');
+    }
+
+    public function bidForm($id)
+    {
+
+        return view('bid-place-form')->with('id', $id);
+
+    }
+
+    public function bidStatusUpdate($id)
+    {
+
+        $bid = Bid::findOrFail($id);
+
+    }
+
+    // Bid Comment
+
+    public function saveBidComment(Request $request, $id)
+    {
+        $post = Post::where('id', $id)->first();
+
+            $bid = Comment::create([
+                'post_id' => $id,
+                'reply_from' => Auth::user()->id,
+                'reply_to' => $post->post_owner_id,
+                'comment' => $request->input('comment'),
+            ]);
+
+            return redirect('comment-bid/'.$id)->with('status', 'Message Send');
+
+    }
+
+    // Bid
+
+    public function saveBid(Request $request, $id)
+    {
+        if($request->bid_amount > Auth::user()->wallet)
+        {
+            return redirect('comment-bid/'.$id)->with('r_status', 'Check Wallet! You can not place this bid.');
+        }else{
+
+            $post = Post::where('id', $id)->first();
+
+            $bid = Bid::create([
+                'post_id' => $id,
+                'user_id' => Auth::user()->id,
+                'post_owner_id' => $post->post_owner_id,
+                'reply_to' => $post->post_owner_id,
+                'message' => $request->message,
+                'bid_amount' => $request['bid_amount'],
+                'bid_status' => 1,
+            ]);
+
+            if($post->post_owner_id != Auth::user()->id)
+            {
+                $find = PostCountBid::where('post_id', $id)->first();
+
+                if($find == null)
+                {
+                    $bidCount = PostCountBid::create([
+                        'user_id' => Auth::user()->id,
+                        'post_id' => $id,
+                    ]);
+                }
+            }
+
+            return redirect('comment-bid/'.$id)->with('r_status', 'Request send');
+        }
+
+    }
+
+    // Bid Confirm
+
+    public function confirmBid(Request $request, $id, $bid_amount, $user_id)
+    {
+        $post = Post::where('id', $id)->first();
+        $sport = Sport::where('id', $post->sp_id)->first();
+
+        if($post->support_team == $sport->team_one){
+            $placer_team = $sport->team_two;
+        }else{
+            $placer_team = $sport->team_one;
+        }
+
+        if($request->bid_amount > Auth::user()->wallet)
+        {
+            return redirect('/place-bid/'.$id)->with('c_status', 'Check Wallet! You can not confirm this bid.');
+        }else{
+
+            $bid = ConfirmBet::create([
+                'post_id' => $id,
+                'sp_id' => $post->sp_id,
+                'placer_id' => $user_id,
+                'placer_team' => $placer_team,
+                'taker_id' => Auth::user()->id,
+                'taker_team' => $post->support_team,
+                'confirm_price' => $bid_amount,
+            ]);
+
+            $cut_amount = User::find(Auth::user()->id);
+            $cut_amount->wallet = $cut_amount->wallet - $bid_amount;
+            $cut_amount->update();
+
+            $cut_amount_bidder = User::find($user_id);
+            $cut_amount_bidder->wallet = $cut_amount_bidder->wallet - $bid_amount;
+            $cut_amount_bidder->update();
+
+            $confirm_post = Post::findOrFail($id); //Post post status update
+            $confirm_post->post_status = 0;
+            $confirm_post->update();
+
+            $bid_delete_taker = Bid::where('post_id', $id)->where('user_id', Auth::user()->id)->delete();
+            $bid_delete_placer = Bid::where('post_id', $id)->where('user_id', $user_id)->delete();
+
+            return redirect('/confirm-bet/'.$id.'/'.$bid_amount.'/'.$user_id)->with('c_status', 'Bid Confirm');
+        }
+
     }
 
     //User Profile
@@ -245,11 +313,25 @@ class HomeController extends Controller
 
             $user = User::where('user_name', $request->user_name)->first();
 
-            $transfer = User::findOrFail($user->id);
-            $transfer->wallet = $request->input("wallet");
-            $transfer->update();
+            if($user === null)
+            {
+                return redirect('/my-coin')->with('c_status', 'User not exists!');
+            }else{
+                if($user->id === Auth::user()->id)
+                {
+                    return redirect('/my-coin')->with('c_status', 'You can not transfer coin to your own account!');
+                }else{
+                    $transferer = User::findOrFail(Auth::user()->id);
+                    $transferer->wallet = $transferer->wallet - $request->input("wallet");
+                    $transferer->update();
 
-            return redirect('/my-coin')->with('c_status', 'Coin transfered Successfully');
+                    $transfer = User::findOrFail($user->id);
+                    $transfer->wallet = $transfer->wallet + $request->input("wallet");
+                    $transfer->update();
+
+                    return redirect('/my-coin')->with('c_status', 'Coin transfered Successfully');
+                }
+            }
         }
 
     }

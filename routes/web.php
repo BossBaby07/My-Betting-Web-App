@@ -17,30 +17,36 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
-Route::get('/', 'HomeController@indexPage')->name('index');
+Route::get('/', 'HomeController@index')->name('index');
 
 Auth::routes();
 
 // User
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@indexPage')->name('home');
 Route::get('/category/{id}', 'HomeController@categoryItemShow')->name('homes');
 Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // -------------User Data---------------//
 
 Route::get('/sport-details/{id}', 'HomeController@showSportDetails')->name('sports');
-Route::get('/place-bid/{id}', 'HomeController@showPlaceBidForm')->name('bidforms'); // All bid list
+Route::get('/place-bid/{id}/{post_owner_id}', 'HomeController@showAllBid')->name('bidforms'); // All bid list
 
 //Bid Users
-
-Route::post('/save-bid/{id}', 'HomeController@saveBid')->name('bidsave');
-Route::post('/confirm-bet/{id}/{sp_id}/{bid_amount}/{user_id}', 'HomeController@confirmBid')->name('bidconfirm');
+Route::post('/confirm-bet/{id}/{bid_amount}/{user_id}', 'HomeController@confirmBid')->name('bidconfirm');
 Route::get('/post-form/{id}/{team}', 'HomeController@showPostForm')->name('postforms');
 Route::post('/save-post/{id}/{team}', 'HomeController@savePost')->name('savepost');
 
+
+//User Bids
+Route::get('/comment-bid/{id}', 'HomeController@postComments')->name('userownpostbids'); // user own post bid list
+Route::post('/save-bid/{id}', 'HomeController@saveBid')->name('bidsave');
+Route::post('/save-comment/{id}', 'HomeController@saveBidComment')->name('savebid');
+Route::get('/user-bid/{id}', 'HomeController@showUserBidConfirm')->name('userpostbid'); // user post bid list
+
+
 //User Posts
-Route::get('/my-post', 'HomeController@userOwnPost')->name('userpost');
+Route::get('/my-post', 'HomeController@userOwnPost')->name('userpost'); //User posts
 
 //User Profile
 Route::get('/my-profile', 'HomeController@userProfile')->name('userprofile');
@@ -89,6 +95,7 @@ Route::prefix('/admin')->group(function(){
 
     //User Data
     Route::get('/all-user', 'UserController@index');
+    // Route::get('/user-search', 'UserController@userSearch');
     Route::get('/wallet-redeem/{id}', 'UserController@walletForm');
     Route::post('/redeem/{id}', 'UserController@walletRedeem');
     Route::delete('/user-delete/{id}', 'UserController@userdelete');

@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-8 left-blog-pad">
                     <div class="schedule-text">
-                        <h4 class="st-title">Available Matches</h4>
+                        <h4 class="st-title">Available Matches For The Category</h4>
                         <div class="st-table">
                             <table>
                                 <tbody>

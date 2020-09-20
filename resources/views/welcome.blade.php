@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="zxx">
 
 <head>
     <meta charset="UTF-8">
@@ -32,9 +32,6 @@
     <div class="offcanvas-menu-wrapper">
         <div class="canvas-close">
             <i class="fa fa-close"></i>
-        </div>
-        <div class="search-btn search-switch">
-            <i class="fa fa-search"></i>
         </div>
         <div class="header__top--canvas">
             <div class="ht-info">
@@ -100,7 +97,7 @@
                                     <li><a href="{{ url('/home') }}">Home</a></li>
                                     <li><a href="{{ url('/my-profile') }}">My Profile</a></li>
                                     <li><a href="{{ url('/my-post') }}">My Post</a></li>
-                                    <li><a href="{{ url('/my-coin') }}">Coin</a></li>
+                                    <li><a href="{{ url('/my-coin') }}">Money</a></li>
                                     <li><a href="{{ url('/my-blogs') }}">Blogs</a></li>
                                     <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                                     <li>
@@ -168,7 +165,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 offset-lg-1">
                     <div class="fs-widget">
-                        <h4>BetSports</h4>
+                        <h4>SPECER</h4>
                         <ul class="fw-links">
                             <li><a href="#">Terms & Conditions</a></li>
                             <li><a href="#">Privacy Policies</a></li>
@@ -245,6 +242,13 @@
     <script src="{{ asset('../frontend/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('../frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('../frontend/js/main.js') }}"></script>
+
+    <script>
+        $('#myTab a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+        })
+    </script>
 
 </body>
 

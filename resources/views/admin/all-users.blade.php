@@ -23,6 +23,17 @@
             @endif
 
         </div>
+
+        <!----- Search field ------>
+        {{-- <nav class="navbar navbar-light bg-light">
+            <form class="form-inline" action="{{ url('admin/user-search') }}" method="POST">
+                {{ csrf_field() }}
+              <input class="form-control mr-sm-2" name="user_name" type="search" placeholder="User name.." aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search User</button>
+            </form>
+        </nav> --}}
+        <!----- Search field end------>
+
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
@@ -31,7 +42,7 @@
                 <th>User Name</th>
                 <th>Email</th>
                 <th>Referrer Name</th>
-                <th>Coins</th>
+                <th>Money</th>
                 <th>Redeem</th>
                 <th>DELETE</th>
               </thead>
@@ -61,6 +72,10 @@
 
               </tbody>
             </table>
+          </div>
+
+          <div>
+              {{ $all_user->links() }}
           </div>
         </div>
       </div>

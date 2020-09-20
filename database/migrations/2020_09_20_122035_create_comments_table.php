@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBidsTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateBidsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bids', function (Blueprint $table) {
-            $table->id();
+        Schema::create('comments', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('post_id');
-            $table->integer('user_id');
-            $table->integer('post_owner_id');
+            $table->integer('reply_from');
             $table->integer('reply_to');
-            $table->string('message');
-            $table->integer('bid_amount');
-            $table->tinyInteger('bid_status');
+            $table->text('comment');
+
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateBidsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bids');
+        Schema::dropIfExists('comments');
     }
 }

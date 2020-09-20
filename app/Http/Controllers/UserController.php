@@ -21,9 +21,17 @@ class UserController extends Controller
 
     public function index()
     {
-        $user = User::all();
+        $user = User::orderby('created_at', 'ASC')->paginate(10);
+
         return view('admin.all-users')->with('all_user', $user);
     }
+
+    // public function userSearch(Request $request)
+    // {
+    //     $user = User::where('user_name', 'LIKE', "%{$request->user_name}%")->get();
+
+    //     return view('admin.all-users')->with('all_user', $user);
+    // }
 
     public function userdelete($id)
     {

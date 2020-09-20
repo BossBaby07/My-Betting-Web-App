@@ -23,4 +23,9 @@ class Post extends Model
     {
         return $this->hasOne('App\ConfirmBet');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

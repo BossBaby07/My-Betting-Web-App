@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bid extends Model
+class PostCountBid extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,6 @@ class Bid extends Model
      * @var array
      */
     protected $fillable = [
-        'post_id', 'user_id', 'post_owner_id', 'reply_to', 'message', 'bid_amount', 'bid_status'
+        'user_id', 'post_id'
     ];
 }
